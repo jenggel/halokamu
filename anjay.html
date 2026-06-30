@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pertanyaan Penting</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f0f0f0;
+            overflow: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        #btn-ya { background-color: #4CAF50; color: white; }
+        
+        #btn-tidak { 
+            background-color: #f44336; 
+            color: white; 
+            position: relative; 
+        }
+
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; display: flex; justify-content: center;
+            align-items: center; z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="overlay">
+        <button onclick="mulai()" style="padding: 20px 40px; background: #2196F3; color: white; border-radius: 10px;">Klik untuk Lanjut!</button>
+    </div>
+    
+    <audio id="suara-iya" src="kaget.mp3" preload="auto"></audio>
+    <audio id="suara-pindah" src="singsing.m4a" preload="auto"></audio>
+
+    <div class="wrapper">
+        <h1>kamu mau gak jadi pacar aku(◔◡◔)</h1>
+        
+        <div class="button-group">
+            <button id="btn-ya" onclick="klikYa()">Iya</button>
+            <button id="btn-tidak" onmouseover="pindahRandom()" ontouchstart="pindahRandom()">Tidak</button>
+        </div>
+    </div>
+
+    <script>
+        const btnTidak = document.getElementById('btn-tidak');
+        const audioIya = document.getElementById('suara-iya');
+        const audioPindah = document.getElementById('suara-pindah');
+
+        function mulai() {
+            document.getElementById('overlay').style.display = 'none';
+            // Aktifkan audio
+            audioPindah.play();
+            audioPindah.pause();
+        }
+
+        function klikYa() {
+            audioIya.play();
+            setTimeout(() => {
+                window.location.href = 'https://wa.me/6283144957547?text=Iya%20aku%20mau%5E_%5E';
+            }, 600);
+        }
+
+        function pindahRandom() {
+            // Mainkan suara pindah
+            audioPindah.currentTime = 0;
+            audioPindah.play();
+
+            // Ubah posisi menjadi fixed agar bisa terbang
+            btnTidak.style.position = 'fixed';
+            
+            // Hitung posisi acak
+            const padding = 50;
+            const x = Math.random() * (window.innerWidth - btnTidak.offsetWidth - padding);
+            const y = Math.random() * (window.innerHeight - btnTidak.offsetHeight - padding);
+            
+            btnTidak.style.left = `${x}px`;
+            btnTidak.style.top = `${y}px`;
+        }
+    </script>
+</body>
+</html>
